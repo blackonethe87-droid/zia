@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aesthetic ZIA Heart</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+    background:linear-gradient(
+        135deg,
+        #020617,
+        #0f172a,
+        #020617
+    );
+    font-family:'Poppins',sans-serif;
+}
+
+/* Background stars */
+.star{
+    position:absolute;
+    color:#93c5fd;
+    opacity:.3;
+    animation:twinkle 4s infinite;
+}
+
+@keyframes twinkle{
+    50%{
+        opacity:1;
+    }
+}
+
+.heart{
+    position:relative;
+    width:550px;
+    height:550px;
+    animation:float 5s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-12px);
+    }
+}
+
+.letter{
+    position:absolute;
+    color:#7dd3fc;
+    font-size:18px;
+    font-weight:600;
+    letter-spacing:2px;
+
+    text-shadow:
+        0 0 8px rgba(125,211,252,.5),
+        0 0 20px rgba(125,211,252,.3);
+
+    animation:glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes glow{
+    from{
+        opacity:.7;
+    }
+    to{
+        opacity:1;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="heart" id="heart"></div>
+
+<script>
+const heart = document.getElementById("heart");
+const chars = ["Z","I","A"];
+let count = 0;
+
+// Heart made from Z I A letters
+for(let t=0; t<Math.PI*2; t+=0.045){
+
+    const x = 16 * Math.pow(Math.sin(t),3);
+
+    const y = -(13*Math.cos(t)
+            -5*Math.cos(2*t)
+            -2*Math.cos(3*t)
+            -Math.cos(4*t));
+
+    const span = document.createElement("span");
+
+    span.className = "letter";
+    span.textContent = chars[count % 3];
+
+    span.style.left = (x * 15 + 270) + "px";
+    span.style.top  = (y * 15 + 270) + "px";
+
+    span.style.animationDelay =
+        (count * 0.05) + "s";
+
+    heart.appendChild(span);
+
+    count++;
+}
+
+// Aesthetic stars
+for(let i=0;i<60;i++){
+
+    const star = document.createElement("div");
+
+    star.className = "star";
+    star.innerHTML = "✦";
+
+    star.style.left = Math.random()*100 + "vw";
+    star.style.top = Math.random()*100 + "vh";
+
+    star.style.fontSize =
+        (8 + Math.random()*12) + "px";
+
+    star.style.animationDelay =
+        Math.random()*5 + "s";
+
+    document.body.appendChild(star);
+}
+</script>
+
+</body>
+</html>
